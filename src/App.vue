@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="https://vuejs.org/images/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <h1>📚 読書記録アプリ</h1>
+    <BookForm @add-book="addBook" />
+    <BookList :books="books" />
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import { ref, onMounted, watch } from 'vue'
+import BookForm from './components/BookForm.vue'
+import BookList from './components/BookList.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+const books = ref([])
+
+onMounted(() => {
+  const saved = localStorage.getItem('books')
+  if (saved) {
+    books.value = JSON.parse(saved)
   }
+})
+
+watch(books, (newVal) => {
+  localStorage.setItem('books', JSON.stringify(newVal))
+}, { deep: true })
+
+const addBook = (book) => {
+  books.value.push(book)
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
 }
 </style>
