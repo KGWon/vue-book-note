@@ -1,9 +1,11 @@
 <template>
-  <div class="container">
-    <h1>📚 読書記録アプリ</h1>
-    <BookForm @add-book="addBook" />
-    <BookList :books="books" />
-  </div>
+  <main class="min-h-screen bg-gray-100 p-6">
+    <div class="max-w-xl mx-auto">
+      <h1 class="text-3xl font-bold text-center text-indigo-600 mb-8">📚 読書記録アプリ</h1>
+      <BookForm @add-book="addBook" />
+      <BookList :books="books" />
+    </div>
+  </main>
 </template>
 
 <script setup>
@@ -28,11 +30,3 @@ const addBook = (book) => {
   books.value.push(book)
 }
 </script>
-
-<style>
-.container {
-  max-width: 600px;
-  margin: auto;
-  padding: 1rem;
-}
-</style>
